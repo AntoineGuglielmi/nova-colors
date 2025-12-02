@@ -1,0 +1,133 @@
+// -----------------------------------------
+// Fonction d'adaptation de la luminance
+// -----------------------------------------
+@function hue-family($color) {
+  $h: hue($color);
+  @if $h < 20 or $h >= 340 { @return 'red'; }
+  @if $h < 45 { @return 'orange'; }
+  @if $h < 70 { @return 'yellow'; }
+  @if $h < 170 { @return 'green'; }
+  @if $h < 200 { @return 'cyan'; }
+  @if $h < 260 { @return 'blue'; }
+  @if $h < 300 { @return 'violet'; }
+  @return 'magenta';
+}
+
+@function proportional-lighten($color, $step) {
+  $L_max: 90%;
+  $h: hue($color);
+  $s: saturation($color);
+  $l: lightness($color);
+
+  $L1: $l + (1/3) * ($L_max - $l);
+  $L2: $l + (2/3) * ($L_max - $l);
+  $L3: $L_max;
+
+  $S1: $s;
+  $S2: $s;
+  $S3: $s;
+
+  $L: $l;
+  $S: $s;
+
+  @if $step == 1 { $L: $L1; $S: $S1; }
+  @if $step == 2 { $L: $L2; $S: $S2; }
+  @if $step == 3 { $L: $L3; $S: $S3; }
+
+  $dh: 0deg;
+  $family: hue-family($color);
+  @if $family == 'blue' { $dh: -($step * 3deg); }
+  @if $family == 'green' { $dh: $step * 2deg; $S: $S - 1%; }
+  @if $family == 'yellow' or $family == 'orange' { $S: $S * 1.2; $L: $L * 0.95; }
+  @if $family == 'red' or $family == 'magenta' { $S: $S * 1.1; }
+
+  @return hsl($h + $dh, $S, $L);
+}
+
+@function generate-primary-scale($color) {
+  @return (
+    "base": $color,
+    "light-1": proportional-lighten($color, 1),
+    "light-2": proportional-lighten($color, 2),
+    "light-3": proportional-lighten($color, 3)
+  );
+}
+
+// -----------------------------------------
+// Liste des couleurs
+// -----------------------------------------
+$colors: (
+  "rouge": #D93D1A,
+  "bleu": #2153F9,
+  "vert": #0C8331,
+  "vert-clair": #4DDB79,
+  "violet": #5A0CA8,
+  "cerulean-blue": #1F75FE,
+  "mint-green": #3EB489,
+  "coral-reef": #FF7660,
+  "sunflower-yellow": #FFDA03,
+  "lavender-blush": #FFBFF3,
+  "deep-purple": #6A0DAD,
+  "ocean-teal": #008080,
+  "burnt-orange": #FF4500,
+  "rosewood": #65000B,
+  "lime-punch": #C7EA46,
+  "sky-blue": #87CEEB,
+  "ruby-red": #E0115F,
+  "forest-green": #228B22,
+  "peach-fuzz": #FFB07C,
+  "indigo-dye": #091F92,
+  "goldenrod": #DAA520,
+  "turquoise-mist": #40E0D0,
+  "magenta-flash": #FF00FF,
+  "chocolate-brown": #8B4513,
+  "steel-gray": #4682B4
+);
+
+// -----------------------------------------
+// Styles pour visualiser
+// -----------------------------------------
+body {
+  font-family: system-ui, sans-serif;
+  background: #fafafa;
+  padding: 20px;
+}
+
+.all {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.swatch {
+  display: flex;
+  gap: 5px;
+}
+
+.color {
+  $size: 200px;
+  height: calc(#{$size} / 4);
+  width: $size;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #111;
+  font-size: 12px;
+  font-weight: 600;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+// -----------------------------------------
+// Générer les classes dynamiquement
+// -----------------------------------------
+@each $name, $hex in $colors {
+  $scale: generate-primary-scale($hex);
+
+  .#{$name} {
+    .base   { background: map-get($scale, "base"); }
+    .light1 { background: map-get($scale, "light-1"); }
+    .light2 { background: map-get($scale, "light-2"); }
+    .light3 { background: map-get($scale, "light-3"); }
+  }
+}

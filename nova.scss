@@ -1,8 +1,8 @@
 @function generate-lights(
   $base,
   $temp-opposite: 4deg,   // bond thermique contraire en l1
-  $temp-return: 20deg,     // retour ++ en l2
-  $temp-cold-push: 20deg,  // refroidissement final en l3
+  $temp-return: 10deg,     // retour ++ en l2
+  $temp-cold-push: 0deg,  // refroidissement final en l3
   $max-lightness: 96.5%     // évite le blanc
 ) {
   $h: hue($base);
@@ -20,7 +20,7 @@
   $spread: (100% - $l) / 100%;
 
   $light-step-1: $spread * 70%;
-  $light-step-2: $spread * 15%;
+  $light-step-2: $spread * 13%;
   $light-step-3: $spread * 20%;
 
   // ----- 3. LIGHT 1 -----

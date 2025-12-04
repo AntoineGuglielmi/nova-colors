@@ -1,49 +1,99 @@
-@function generate-lights(
-  $base,
-  $temp-opposite: 4deg,   // bond thermique contraire en l1
-  $temp-return: 10deg,     // retour ++ en l2
-  $temp-cold-push: 0deg,  // refroidissement final en l3
-  $max-lightness: 96.5%     // évite le blanc
-) {
+/* ================================
+   🔧 OUTILS MATH SASS
+================================ */
+
+@function clamp-val($v, $min, $max) {
+  @if $v < $min { @return $min; }
+  @else if $v > $max { @return $max; }
+  @else { @return $v; }
+}
+
+/* ================================
+   🎨 CATEGORISATION COULEUR
+================================ */
+
+@function luminance-zone($l) {
+  @if $l < 35% { @return "dark"; }
+  @else if $l < 70% { @return "mid"; }
+  @else { @return "light"; }
+}
+
+@function temperature-zone($h) {
+  @if ($h >= 30deg and $h <= 110deg) { @return "warm"; }
+  @else if ($h >= 200deg and $h <= 300deg) { @return "cold"; }
+  @else { @return "temperate"; }
+}
+
+/* ================================
+   🔆 REPARTITION LUMINEUSE
+================================ */
+
+@function light-steps($l-zone) {
+  @if $l-zone == "dark" {
+    @return (18%, 18%, 18%);
+  }
+  @else if $l-zone == "mid" {
+    @return (30%, 7%, 3%);
+  }
+  @else { // light
+    @return (4%, 7%, 22%);
+  }
+}
+
+/* ================================
+   🌡️ DERIVE THERMIQUE
+================================ */
+
+@function temperature-shift($zone, $level) {
+  @if $zone == "warm" {
+    @return if($level == 1, -6deg, if($level == 2, -10deg, 0deg));
+  }
+  @else if $zone == "cold" {
+    @return if($level == 1, -1deg, if($level == 2, -9deg, -7.5deg));
+  }
+  @else {
+    @return 0deg;
+  }
+}
+
+/* ================================
+   🧠 GENERATEUR DE PALETTE
+================================ */
+
+@function generate-palette($base) {
+
   $h: hue($base);
   $s: saturation($base);
   $l: lightness($base);
 
-  // ----- 1. Détection chaud / froid -----
-  $is-warm: ($h < 110deg) or ($h > 290deg);
+  $l-zone: luminance-zone($l);
+  $t-zone: temperature-zone($h);
 
-  $sign-base: if($is-warm, 1, -1); // sens thermique naturel
-  $sign-opposite: -$sign-base;
+  $steps: light-steps($l-zone);
+  $d1: nth($steps, 1);
+  $d2: nth($steps, 2);
+  $d3: nth($steps, 3);
 
-  // ----- 2. Répartition automatique de la luminosité -----
-  // Plus la base est sombre, plus les pas sont grands
-  $spread: (100% - $l) / 100%;
+  // luminances progressives (plafonnées à 96.5%)
+  $l1-l: clamp-val($l + $d1, 0%, 96.5%);
+  $l2-l: clamp-val($l1-l + $d2, 0%, 96.5%);
+  $l3-l: clamp-val($l2-l + $d3, 0%, 96.5%);
 
-  $light-step-1: $spread * 70%;
-  $light-step-2: $spread * 13%;
-  $light-step-3: $spread * 20%;
+  // dérives thermiques L1 / L2 uniquement
+  $h1-shift: temperature-shift($t-zone, 1);
+  $h2-shift: temperature-shift($t-zone, 2);
+  $h3-shift: temperature-shift($t-zone, 3);
 
-  // ----- 3. LIGHT 1 -----
-  $l1-h: $h + ($sign-opposite * $temp-opposite);
-  $l1-l: $l + $light-step-1;
-  $light1: hsl($l1-h, $s, $l1-l);
-
-  // ----- 4. LIGHT 2 -----
-  $l2-h: $h + ($sign-base * $temp-return);
-  $l2-l: $l1-l + $light-step-2;
-  $light2: hsl($l2-h, $s, $l2-l);
-
-  // ----- 5. LIGHT 3 -----
-  // Encore plus froide + plus claire sans blanchir
-  $l3-h: $l2-h - ($sign-base * $temp-cold-push);
-  $l3-l: min($l2-l + $light-step-3, $max-lightness);
-  $light3: hsl($l3-h, $s, $l3-l);
+  $base-hsl: hsl($h, $s, $l);
+  $l1: hsl($h + $h1-shift, $s, $l1-l);
+  $l2: hsl($h + $h2-shift, $s, $l2-l);
+  $l3: hsl($h + $h3-shift, $s, $l3-l); // toujours alignée
 
   @return (
-    base: $base,
-    light1: $light1,
-    light2: $light2,
-    light3: $light3
+    base: $base-hsl,
+    light1: $l1,
+    light2: $l2,
+    light3: $l3
   );
 }
 
@@ -77,7 +127,7 @@ $colors: (
 
 /* générer les custom properties pour chaque palette */
 @each $name, $color in $colors {
-  $palette: generate-lights($color);
+  $palette: generate-palette($color);
 
   .palette--#{$name} {
     --base: #{map-get($palette, base)};
@@ -105,11 +155,28 @@ $colors: (
     flex-direction: column;
     gap: 8px;
     
-    .palette__title {
+    &__title {
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 4px;
       font-size: 12px;
+    }
+    
+    &__labels {
+      display: flex;
+      gap: 8px;
+      
+      p {
+        font-weight: 700;
+      }
+    }
+      
+    &.no-gap {
+      gap: 0;
+      
+      .swatch {
+        box-shadow: none;
+      }
     }
   }
 
@@ -118,8 +185,8 @@ $colors: (
     gap: 16px;
 
     .swatch {
-      width: 100px;
-      height: 100px;
+      width: 200px;
+      height: 200px;
       border-radius: 16px;
       display: flex;
       align-items: flex-end;
@@ -133,6 +200,11 @@ $colors: (
       &--l1   { background: var(--l1); }
       &--l2   { background: var(--l2); }
       &--l3   { background: var(--l3); }
+
+      &--Bbase { background: #2153F9; }
+      &--Bl1   { background: #B6C7FF; }
+      &--Bl2   { background: #D9E8FE; }
+      &--Bl3   { background: #E9F0FB; }
     }
   }
 }

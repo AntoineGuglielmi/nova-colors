@@ -1,7 +1,6 @@
 /* ================================
    🔧 OUTILS MATH SASS
 ================================ */
-
 @function clamp-val($v, $min, $max) {
   @if $v < $min { @return $min; }
   @else if $v > $max { @return $max; }
@@ -11,84 +10,229 @@
 /* ================================
    🎨 CATEGORISATION COULEUR
 ================================ */
-
 @function luminance-zone($l) {
-  @if $l < 35% { @return "dark"; }
-  @else if $l < 70% { @return "mid"; }
-  @else { @return "light"; }
+  @if $l < 20% { @return "very-dark"; }
+  @else if $l < 40% { @return "dark"; }
+  @else if $l < 60% { @return "mid"; }
+  @else if $l < 80% { @return "light"; }
+  @else { @return "very-light"; }
 }
 
-@function temperature-zone($h) {
-  @if ($h >= 30deg and $h <= 110deg) { @return "warm"; }
-  @else if ($h >= 200deg and $h <= 300deg) { @return "cold"; }
-  @else { @return "temperate"; }
+@function hue-zone($color) {
+  $h: hue($color);
+  $s: saturation($color);
+  
+  @if $s < 10% { @return "neutral"; }
+  @if ($h >= 0deg and $h < 15deg) or ($h >= 345deg and $h <= 360deg) { @return "red"; }
+  @else if ($h >= 15deg and $h < 45deg) { @return "orange"; }
+  @else if ($h >= 45deg and $h < 75deg) { @return "yellow"; }
+  @else if ($h >= 75deg and $h < 105deg) { @return "yellow-green"; }
+  @else if ($h >= 105deg and $h < 135deg) { @return "green"; }
+  @else if ($h >= 135deg and $h < 165deg) { @return "green-cyan"; }
+  @else if ($h >= 165deg and $h < 195deg) { @return "cyan"; }
+  @else if ($h >= 195deg and $h < 225deg) { @return "cyan-blue"; }
+  @else if ($h >= 225deg and $h < 255deg) { @return "blue"; }
+  @else if ($h >= 255deg and $h < 285deg) { @return "blue-violet"; }
+  @else if ($h >= 285deg and $h < 315deg) { @return "violet"; }
+  @else { @return "red-violet"; }
 }
 
 /* ================================
-   🔆 REPARTITION LUMINEUSE
+   🔆 LIGHT STEPS COMPLÈTES
 ================================ */
-
-@function light-steps($l-zone) {
-  @if $l-zone == "dark" {
-    @return (18%, 18%, 18%);
+@function light-steps($h-zone, $l-zone) {
+  @if $h-zone == "red" {
+    @if $l-zone == "very-dark" { @return (50%, 25%, 20%); }
+    @else if $l-zone == "dark" { @return (45%, 18%, 18%); }
+    @else if $l-zone == "mid" { @return (30%, 13%, 13%); }
+    @else if $l-zone == "light" { @return (12%, 11%, 10%); }
+    @else { @return (4%, 8%, 20%); }
   }
-  @else if $l-zone == "mid" {
-    @return (30%, 7%, 3%);
+  @else if $h-zone == "orange" {
+    @if $l-zone == "very-dark" { @return (28%, 24%, 18%); }
+    @else if $l-zone == "dark" { @return (29%, 16%, 14%); }
+    @else if $l-zone == "mid" { @return (25%, 12%, 7%); }
+    @else if $l-zone == "light" { @return (16%, 12%, 9%); }
+    @else { @return (5%, 9%, 22%); }
   }
-  @else { // light
-    @return (4%, 7%, 22%);
+  @else if $h-zone == "yellow" {
+    @if $l-zone == "very-dark" { @return (25%, 20%, 15%); }
+    @else if $l-zone == "dark" { @return (28%, 15%, 12%); }
+    @else if $l-zone == "mid" { @return (25%, 10%, 10%); }
+    @else if $l-zone == "light" { @return (18%, 13%, 10%); }
+    @else { @return (6%, 10%, 22%); }
   }
+  @else if $h-zone == "yellow-green" {
+    @if $l-zone == "very-dark" { @return (28%, 23%, 18%); }
+    @else if $l-zone == "dark" { @return (30%, 14%, 11%); }
+    @else if $l-zone == "mid" { @return (28%, 9%, 4%); }
+    @else if $l-zone == "light" { @return (16%, 12%, 9%); }
+    @else { @return (5%, 9%, 21%); }
+  }
+  @else if $h-zone == "green" {
+    @if $l-zone == "very-dark" { @return (27%, 22%, 18%); }
+    @else if $l-zone == "dark" { @return (29%, 15%, 13%); }
+    @else if $l-zone == "mid" { @return (30%, 8%, 3%); }
+    @else if $l-zone == "light" { @return (15%, 12%, 8%); }
+    @else { @return (4%, 9%, 20%); }
+  }
+  @else if $h-zone == "green-cyan" {
+    @if $l-zone == "very-dark" { @return (26%, 21%, 17%); }
+    @else if $l-zone == "dark" { @return (28%, 14%, 11%); }
+    @else if $l-zone == "mid" { @return (29%, 8%, 4%); }
+    @else if $l-zone == "light" { @return (14%, 10%, 7%); }
+    @else { @return (4%, 8%, 19%); }
+  }
+  @else if $h-zone == "cyan" {
+    @if $l-zone == "very-dark" { @return (25%, 21%, 17%); }
+    @else if $l-zone == "dark" { @return (40%, 15%, 12%); }
+    @else if $l-zone == "mid" { @return (28%, 10%, 6%); }
+    @else if $l-zone == "light" { @return (14%, 11%, 8%); }
+    @else { @return (4%, 9%, 20%); }
+  }
+  @else if $h-zone == "cyan-blue" {
+    @if $l-zone == "very-dark" { @return (24%, 20%, 16%); }
+    @else if $l-zone == "dark" { @return (26%, 14%, 12%); }
+    @else if $l-zone == "mid" { @return (25%, 9%, 7%); }
+    @else if $l-zone == "light" { @return (13%, 10%, 7%); }
+    @else { @return (4%, 8%, 19%); }
+  }
+  @else if $h-zone == "blue" {
+    @if $l-zone == "very-dark" { @return (30%, 25%, 20%); }
+    @else if $l-zone == "dark" { @return (30%, 15%, 13%); }
+    @else if $l-zone == "mid" { @return (30%, 7%, 3%); }
+    @else if $l-zone == "light" { @return (15%, 11%, 8%); }
+    @else { @return (4%, 8%, 20%); }
+  }
+  @else if $h-zone == "blue-violet" {
+    @if $l-zone == "very-dark" { @return (28%, 24%, 19%); }
+    @else if $l-zone == "dark" { @return (29%, 15%, 12%); }
+    @else if $l-zone == "mid" { @return (27%, 8%, 3%); }
+    @else if $l-zone == "light" { @return (15%, 11%, 8%); }
+    @else { @return (5%, 9%, 21%); }
+  }
+  @else if $h-zone == "violet" {
+    @if $l-zone == "very-dark" { @return (26%, 21%, 17%); }
+    @else if $l-zone == "dark" { @return (45%, 12%, 11%); }
+    @else if $l-zone == "mid" { @return (29%, 7%, 3%); }
+    @else if $l-zone == "light" { @return (9%, 7%, 7%); }
+    @else { @return (4%, 8%, 19%); }
+  }
+  @else if $h-zone == "red-violet" {
+    @if $l-zone == "very-dark" { @return (28%, 24%, 20%); }
+    @else if $l-zone == "dark" { @return (29%, 15%, 12%); }
+    @else if $l-zone == "mid" { @return (27%, 8%, 3%); }
+    @else if $l-zone == "light" { @return (15%, 11%, 8%); }
+    @else { @return (5%, 9%, 21%); }
+  }
+  @else { @return (0%, 0%, 0%); }
 }
 
-/* ================================
-   🌡️ DERIVE THERMIQUE
-================================ */
+/* ================================  
+   🌈 DERIVES CHROMATIQUES PAR TEINTE  
+================================ */  
 
-@function temperature-shift($zone, $level) {
-  @if $zone == "warm" {
-    @return if($level == 1, -6deg, if($level == 2, -10deg, 0deg));
+@function hue-shift($zone, $level) {
+  // Ajustements spécifiques par zone de teinte
+  @if $zone == "red" {
+    @return if($level == 1, 2deg, if($level == 2, -3deg, 0deg));
   }
-  @else if $zone == "cold" {
-    @return if($level == 1, -1deg, if($level == 2, -9deg, -7.5deg));
+  @else if $zone == "orange" {
+    @return if($level == 1, -2deg, if($level == 2, -5deg, 0deg));
   }
-  @else {
+  @else if $zone == "yellow" {
+    @return if($level == 1, -3deg, if($level == 2, -8deg, 0deg));
+  }
+  @else if $zone == "yellow-green" {
+    @return if($level == 1, 2deg, if($level == 2, -2deg, 0deg));
+  }
+  @else if $zone == "green" {
+    @return if($level == 1, 3deg, if($level == 2, -4deg, 0deg));
+  }
+  @else if $zone == "green-cyan" {
+    @return if($level == 1, -2deg, if($level == 2, -6deg, 0deg));
+  }
+  @else if $zone == "cyan" {
+    @return if($level == 1, 1deg, if($level == 2, -3deg, 0deg));
+  }
+  @else if $zone == "cyan-blue" {
+    @return if($level == 1, -1deg, if($level == 2, -5deg, 0deg));
+  }
+  @else if $zone == "blue" {
+    @return if($level == 1, -1deg, if($level == 2, -9deg, -7.5deg)); // votre logique actuelle
+  }
+  @else if $zone == "blue-violet" {
+    @return if($level == 1, 2deg, if($level == 2, -2deg, 0deg));
+  }
+  @else if $zone == "violet" {
+    @return if($level == 1, 4deg, if($level == 2, -1deg, 0deg));
+  }
+  @else if $zone == "red-violet" {
+    @return if($level == 1, 3deg, if($level == 2, -2deg, 0deg));
+  }
+  @else { // neutral
     @return 0deg;
   }
 }
+
+/* ================================  
+   🎯 AJUSTEMENTS DE SATURATION 
+================================ */  
+
+@function saturation-adjustment($zone, $level, $base-saturation) {
+  // Optionnel : ajuster la saturation selon la teinte
+  $base-factor: 1;
+  
+  @if $zone == "yellow" or $zone == "yellow-green" {
+    // Les jaunes peuvent devenir ternes, on booste légèrement
+    $base-factor: if($level == 1, 0.65, if($level == 2, 0.75, 0.85));
+  }
+  @else if $zone == "cyan" or $zone == "green-cyan" {
+    // Les cyans peuvent être plus vibrants dans les tons clairs
+    $base-factor: if($level == 1, 1.08, if($level == 2, 1.03, 1));
+  }
+  
+  @return clamp-val($base-saturation * $base-factor, 0%, 100%);
+}
+
 
 /* ================================
    🧠 GENERATEUR DE PALETTE
 ================================ */
 
 @function generate-palette($base) {
-
   $h: hue($base);
   $s: saturation($base);
   $l: lightness($base);
-
+  
   $l-zone: luminance-zone($l);
-  $t-zone: temperature-zone($h);
-
-  $steps: light-steps($l-zone);
+  $h-zone: hue-zone($base); // Nouvelle logique !
+  
+  $steps: light-steps($h-zone,$l-zone);
   $d1: nth($steps, 1);
   $d2: nth($steps, 2);
   $d3: nth($steps, 3);
-
-  // luminances progressives (plafonnées à 96.5%)
+  
+  // Luminances progressives
   $l1-l: clamp-val($l + $d1, 0%, 96.5%);
   $l2-l: clamp-val($l1-l + $d2, 0%, 96.5%);
   $l3-l: clamp-val($l2-l + $d3, 0%, 96.5%);
-
-  // dérives thermiques L1 / L2 uniquement
-  $h1-shift: temperature-shift($t-zone, 1);
-  $h2-shift: temperature-shift($t-zone, 2);
-  $h3-shift: temperature-shift($t-zone, 3);
-
+  
+  // Dérives chromatiques par zone de teinte
+  $h1-shift: hue-shift($h-zone, 1);
+  $h2-shift: hue-shift($h-zone, 2);
+  $h3-shift: hue-shift($h-zone, 3);
+  
+  // Ajustements optionnels de saturation
+  $s1: saturation-adjustment($h-zone, 1, $s);
+  $s2: saturation-adjustment($h-zone, 2, $s);
+  $s3: saturation-adjustment($h-zone, 3, $s);
+  
   $base-hsl: hsl($h, $s, $l);
-  $l1: hsl($h + $h1-shift, $s, $l1-l);
-  $l2: hsl($h + $h2-shift, $s, $l2-l);
-  $l3: hsl($h + $h3-shift, $s, $l3-l); // toujours alignée
-
+  $l1: hsl($h + $h1-shift, $s1, $l1-l);
+  $l2: hsl($h + $h2-shift, $s2, $l2-l);
+  $l3: hsl($h + $h3-shift, $s3, $l3-l);
+  
   @return (
     base: $base-hsl,
     light1: $l1,
@@ -98,31 +242,19 @@
 }
 
 $colors: (
-  bleu-base: #2153F9,
-  bleu-base-fonce: #223D99,
-  bleu-base-clair: #92AAF8,
-  menthe: #A3F9C1,
-  bleu-roi: #4B72E9,
-  corail: #E85F3C,
-  lagon: #19C7D4,
-  safran: #F2B84A,
-  indigo: #6D3FE0,
-  pistache: #91E26B,
-  framboise: #D43A7F,
-  foret: #2F8A4C,
-  citron-vert: #C9E134,
-  pervenche: #7A5DF2,
-  rose-fluo: #F45B92,
-  azur: #3DB1E7,
-  miel: #E1A24F,
-  tilleul: #5C9A32,
-  mauve: #B84FE2,
-  jade: #28D6A1,
-  mandarine: #F06C21,
-  violet-electrique: #9B3FDD,
-  menthe-claire: #74E592,
-  turquoise: #2AC6B9,
-  brique: #C14A32
+  "mid-blue": #2153F9,
+  "mid-cyan-blue": #21bff9,
+  "very-dark-red": #540101,
+  "dark-red": #7B0000,
+  "mid-red": #d10202,
+  "light-red": #ff4242,
+  "mid-orange": #FFA500,
+  "mid-yellow": #B3D500,
+  "mid-cyan": #00FFFF,
+  "light-violet": #DDA0DD,
+  "dark-cyan": #00627b,
+  "dark-yellow": #78782a,
+  "dark-violet": #4d1554
 );
 
 /* générer les custom properties pour chaque palette */
@@ -185,8 +317,8 @@ $colors: (
     gap: 16px;
 
     .swatch {
-      width: 200px;
-      height: 200px;
+      width: 100px;
+      height: 100px;
       border-radius: 16px;
       display: flex;
       align-items: flex-end;
@@ -194,7 +326,7 @@ $colors: (
       color: white;
       font-size: 12px;
       font-family: sans-serif;
-      box-shadow: 0 0 1rem 0 rgba(0,0,0,0.25);
+      // box-shadow: 0 0 1rem 0 rgba(0,0,0,0.25);
 
       &--base { background: var(--base); }
       &--l1   { background: var(--l1); }

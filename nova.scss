@@ -42,87 +42,87 @@
 ================================ */
 @function light-steps($h-zone, $l-zone) {
   @if $h-zone == "red" {
-    @if $l-zone == "very-dark" { @return (50%, 25%, 20%); }
-    @else if $l-zone == "dark" { @return (45%, 18%, 18%); }
+    @if $l-zone == "very-dark" { @return (50%, 25%, 6.5%); }
+    @else if $l-zone == "dark" { @return (45%, 18%, 10.5%); }
     @else if $l-zone == "mid" { @return (30%, 13%, 13%); }
-    @else if $l-zone == "light" { @return (12%, 11%, 10%); }
+    @else if $l-zone == "light" { @return (12%, 11%, 11%); }
     @else { @return (4%, 8%, 20%); }
   }
   @else if $h-zone == "orange" {
-    @if $l-zone == "very-dark" { @return (28%, 24%, 18%); }
-    @else if $l-zone == "dark" { @return (29%, 16%, 14%); }
+    @if $l-zone == "very-dark" { @return (58%, 14%, 5%); }
+    @else if $l-zone == "dark" { @return (37%, 14%, 6%); }
     @else if $l-zone == "mid" { @return (25%, 12%, 7%); }
-    @else if $l-zone == "light" { @return (16%, 12%, 9%); }
+    @else if $l-zone == "light" { @return (6%, 8%, 6%); }
     @else { @return (5%, 9%, 22%); }
   }
   @else if $h-zone == "yellow" {
-    @if $l-zone == "very-dark" { @return (25%, 20%, 15%); }
+    @if $l-zone == "very-dark" { @return (45%, 20%, 12%); }
     @else if $l-zone == "dark" { @return (28%, 15%, 12%); }
     @else if $l-zone == "mid" { @return (25%, 10%, 10%); }
-    @else if $l-zone == "light" { @return (18%, 13%, 10%); }
+    @else if $l-zone == "light" { @return (9%, 8%, 7%); }
     @else { @return (6%, 10%, 22%); }
   }
   @else if $h-zone == "yellow-green" {
-    @if $l-zone == "very-dark" { @return (28%, 23%, 18%); }
-    @else if $l-zone == "dark" { @return (30%, 14%, 11%); }
-    @else if $l-zone == "mid" { @return (28%, 9%, 4%); }
-    @else if $l-zone == "light" { @return (16%, 12%, 9%); }
+    @if $l-zone == "very-dark" { @return (50%, 18%, 9%); }
+    @else if $l-zone == "dark" { @return (38%, 14%, 8%); }
+    @else if $l-zone == "mid" { @return (20%, 12%, 7%); }
+    @else if $l-zone == "light" { @return (10%, 8%, 6%); }
     @else { @return (5%, 9%, 21%); }
   }
   @else if $h-zone == "green" {
-    @if $l-zone == "very-dark" { @return (27%, 22%, 18%); }
-    @else if $l-zone == "dark" { @return (29%, 15%, 13%); }
-    @else if $l-zone == "mid" { @return (30%, 8%, 3%); }
-    @else if $l-zone == "light" { @return (15%, 12%, 8%); }
+    @if $l-zone == "very-dark" { @return (60%, 12%, 7%); }
+    @else if $l-zone == "dark" { @return (40%, 10%, 9%); }
+    @else if $l-zone == "mid" { @return (32%, 10%, 7%); }
+    @else if $l-zone == "light" { @return (12%, 8%, 7%); }
     @else { @return (4%, 9%, 20%); }
   }
   @else if $h-zone == "green-cyan" {
-    @if $l-zone == "very-dark" { @return (26%, 21%, 17%); }
-    @else if $l-zone == "dark" { @return (28%, 14%, 11%); }
-    @else if $l-zone == "mid" { @return (29%, 8%, 4%); }
-    @else if $l-zone == "light" { @return (14%, 10%, 7%); }
+    @if $l-zone == "very-dark" { @return (55%, 15%, 9%); }
+    @else if $l-zone == "dark" { @return (48%, 8%, 6%); }
+    @else if $l-zone == "mid" { @return (33%, 8%, 6%); }
+    @else if $l-zone == "light" { @return (14%, 8%, 6%); }
     @else { @return (4%, 8%, 19%); }
   }
   @else if $h-zone == "cyan" {
-    @if $l-zone == "very-dark" { @return (25%, 21%, 17%); }
-    @else if $l-zone == "dark" { @return (40%, 15%, 12%); }
+    @if $l-zone == "very-dark" { @return (55%, 15%, 6%); }
+    @else if $l-zone == "dark" { @return (55%, 9%, 7%); }
     @else if $l-zone == "mid" { @return (28%, 10%, 6%); }
-    @else if $l-zone == "light" { @return (14%, 11%, 8%); }
+    @else if $l-zone == "light" { @return (14%, 9%, 5%); }
     @else { @return (4%, 9%, 20%); }
   }
   @else if $h-zone == "cyan-blue" {
-    @if $l-zone == "very-dark" { @return (24%, 20%, 16%); }
-    @else if $l-zone == "dark" { @return (26%, 14%, 12%); }
+    @if $l-zone == "very-dark" { @return (60%, 10%, 9%); }
+    @else if $l-zone == "dark" { @return (46%, 10%, 8%); }
     @else if $l-zone == "mid" { @return (25%, 9%, 7%); }
-    @else if $l-zone == "light" { @return (13%, 10%, 7%); }
+    @else if $l-zone == "light" { @return (10%, 7%, 7%); }
     @else { @return (4%, 8%, 19%); }
   }
   @else if $h-zone == "blue" {
-    @if $l-zone == "very-dark" { @return (73%, 7%, 20%); }
-    @else if $l-zone == "dark" { @return (55%, 7%, 13%); }
-    @else if $l-zone == "mid" { @return (30%, 7%, 3%); }
-    @else if $l-zone == "light" { @return (11%, 4%, 4%); }
+    @if $l-zone == "very-dark" { @return (73%, 7%, 4%); }
+    @else if $l-zone == "dark" { @return (55%, 7%, 4%); }
+    @else if $l-zone == "mid" { @return (30%, 7%, 4%); }
+    @else if $l-zone == "light" { @return (11%, 4%, 5%); }
     @else { @return (4%, 8%, 20%); }
   }
   @else if $h-zone == "blue-violet" {
-    @if $l-zone == "very-dark" { @return (28%, 24%, 19%); }
-    @else if $l-zone == "dark" { @return (29%, 15%, 12%); }
-    @else if $l-zone == "mid" { @return (27%, 8%, 3%); }
-    @else if $l-zone == "light" { @return (15%, 11%, 8%); }
+    @if $l-zone == "very-dark" { @return (58%, 14%, 8%); }
+    @else if $l-zone == "dark" { @return (45%, 10%, 9%); }
+    @else if $l-zone == "mid" { @return (29%, 11%, 9%); }
+    @else if $l-zone == "light" { @return (12%, 11%, 10%); }
     @else { @return (5%, 9%, 21%); }
   }
   @else if $h-zone == "violet" {
-    @if $l-zone == "very-dark" { @return (26%, 21%, 17%); }
-    @else if $l-zone == "dark" { @return (45%, 12%, 11%); }
-    @else if $l-zone == "mid" { @return (29%, 7%, 3%); }
-    @else if $l-zone == "light" { @return (9%, 7%, 7%); }
+    @if $l-zone == "very-dark" { @return (56%, 19%, 9%); }
+    @else if $l-zone == "dark" { @return (50%, 12%, 13%); }
+    @else if $l-zone == "mid" { @return (30%, 9%, 9%); }
+    @else if $l-zone == "light" { @return (5%, 8%, 7%); }
     @else { @return (4%, 8%, 19%); }
   }
   @else if $h-zone == "red-violet" {
-    @if $l-zone == "very-dark" { @return (28%, 24%, 20%); }
-    @else if $l-zone == "dark" { @return (29%, 15%, 12%); }
-    @else if $l-zone == "mid" { @return (27%, 8%, 3%); }
-    @else if $l-zone == "light" { @return (15%, 11%, 8%); }
+    @if $l-zone == "very-dark" { @return (65%, 11%, 5%); }
+    @else if $l-zone == "dark" { @return (55%, 10%, 6%); }
+    @else if $l-zone == "mid" { @return (31%, 12%, 6%); }
+    @else if $l-zone == "light" { @return (12%, 11%, 5%); }
     @else { @return (5%, 9%, 21%); }
   }
   @else { @return (0%, 0%, 0%); }
@@ -214,9 +214,9 @@
   $d3: nth($steps, 3);
   
   // Luminances progressives
-  $l1-l: clamp-val($l + $d1, 0%, 96.5%);
-  $l2-l: clamp-val($l1-l + $d2, 0%, 96.5%);
-  $l3-l: clamp-val($l2-l + $d3, 0%, 96.5%);
+  $l1-l: clamp-val($l + $d1, 0%, 100%);
+  $l2-l: clamp-val($l1-l + $d2, 0%, 100%);
+  $l3-l: clamp-val($l2-l + $d3, 0%, 100%);
   
   // Dérives chromatiques par zone de teinte
   $h1-shift: hue-shift($h-zone, 1);
@@ -242,22 +242,77 @@
 }
 
 $colors: (
-  "very-dark-blue": #011042,
-  "dark-blue": #02259c,
-  "mid-blue": #2153F9,
-  "light-blue": #90a8f5,
-  "mid-cyan-blue": #21bff9,
+  // RED
   "very-dark-red": #540101,
   "dark-red": #7B0000,
   "mid-red": #d10202,
   "light-red": #ff4242,
+  
+  // ORANGE
+  "very-dark-orange": #583b06,
+  "dark-orange": #ad7712,
   "mid-orange": #FFA500,
-  "mid-yellow": #B3D500,
-  "mid-cyan": #00FFFF,
-  "light-violet": #DDA0DD,
-  "dark-cyan": #00627b,
+  "light-orange": #facf80,
+  
+  // YELLOW
+  "very-dark-yellow": #3c410a,
   "dark-yellow": #78782a,
-  "dark-violet": #4d1554
+  "mid-yellow": #B3D500,
+  "light-yellow": #edfb52,
+  
+  // YELLOW-GREEN
+  "very-dark-yellow-green": #3a5503,
+  "dark-yellow-green": #71a802,
+  "mid-yellow-green": #abf617,
+  "light-yellow-green": #c7f767,
+  
+  // GREEN
+  "very-dark-green": #143b16,
+  "dark-green": #1b991f,
+  "mid-green": #0add11,
+  "light-green": #62f667,
+  
+  // GREEN-CYAN
+  "very-dark-green-cyan": #044b2b,
+  "dark-green-cyan": #168d57,
+  "mid-green-cyan": #0fe585,
+  "light-green-cyan": #57f8b0,
+  
+  // CYAN
+  "very-dark-cyan": #006060,
+  "dark-cyan": #00627b,
+  "mid-cyan": #00FFFF,
+  "light-cyan": #61f6f6,
+  
+  // CYAN-BLUE
+  "very-dark-cyan-blue": #013e55,
+  "dark-cyan-blue": #0378a2,
+  "mid-cyan-blue": #21bff9,
+  "light-cyan-blue": #77d7fa,
+  
+  // BLUE
+  "very-dark-blue": #011042,
+  "dark-blue": #02259c,
+  "mid-blue": #2153F9,
+  "light-blue": #90a8f5,
+  
+  // BLUE-VIOLET
+  "very-dark-blue-violet": #250352,
+  "dark-blue-violet": #49099c,
+  "mid-blue-violet": #6909e7,
+  "light-blue-violet": #9754ef,
+  
+  // VIOLET
+  "very-dark-violet": #300836,
+  "dark-violet": #4d1554,
+  "mid-violet": #b627c9,
+  "light-violet": #DDA0DD,
+  
+  // RED-VIOLET
+  "very-dark-red-violet": #420b32,
+  "dark-red-violet": #770958,
+  "mid-red-violet": #dc12a2,
+  "light-red-violet": #f664cc,
 );
 
 /* générer les custom properties pour chaque palette */
@@ -285,61 +340,55 @@ $colors: (
   gap: 32px;
   padding: 16px;
   
-  .palette {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    
-    &__title {
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 4px;
-      font-size: 12px;
-    }
-    
-    &__labels {
-      display: flex;
-      gap: 8px;
-      
-      p {
-        font-weight: 700;
-      }
-    }
-      
-    &.no-gap {
-      gap: 0;
-      
-      .swatch {
-        box-shadow: none;
-      }
-    }
-  }
-
-  .group {
+  .color {
     display: flex;
     gap: 16px;
-
-    .swatch {
-      width: 100px;
-      height: 100px;
-      border-radius: 16px;
+    flex-direction: column;
+    
+    &__title {
+      text-transform: uppercase;
+      font-weight: 900;
+    }
+  
+    .palette {
       display: flex;
-      align-items: flex-end;
-      justify-content: center;
-      color: white;
-      font-size: 12px;
-      font-family: sans-serif;
-      // box-shadow: 0 0 1rem 0 rgba(0,0,0,0.25);
+      flex-direction: column;
+      gap: 8px;
 
-      &--base { background: var(--base); }
-      &--l1   { background: var(--l1); }
-      &--l2   { background: var(--l2); }
-      &--l3   { background: var(--l3); }
+      &__title {
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 4px;
+        font-size: 12px;
+      }
 
-      &--Bbase { background: #2153F9; }
-      &--Bl1   { background: #B6C7FF; }
-      &--Bl2   { background: #D9E8FE; }
-      &--Bl3   { background: #E9F0FB; }
+      &__group {
+        display: flex;
+        gap: 16px;
+
+        .swatch {
+          width: 100px;
+          height: 100px;
+          border-radius: 16px;
+          display: flex;
+          align-items: flex-end;
+          justify-content: center;
+          color: white;
+          font-size: 12px;
+          font-family: sans-serif;
+          // box-shadow: 0 0 1rem 0 rgba(0,0,0,0.25);
+
+          &--base { background: var(--base); }
+          &--l1   { background: var(--l1); }
+          &--l2   { background: var(--l2); }
+          &--l3   { background: var(--l3); }
+
+          &--Bbase { background: #2153F9; }
+          &--Bl1   { background: #B6C7FF; }
+          &--Bl2   { background: #D9E8FE; }
+          &--Bl3   { background: #E9F0FB; }
+        }
+      }
     }
   }
 }

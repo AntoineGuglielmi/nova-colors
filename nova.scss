@@ -98,10 +98,10 @@
     @else { @return (4%, 8%, 19%); }
   }
   @else if $h-zone == "blue" {
-    @if $l-zone == "very-dark" { @return (30%, 25%, 20%); }
-    @else if $l-zone == "dark" { @return (30%, 15%, 13%); }
+    @if $l-zone == "very-dark" { @return (73%, 7%, 20%); }
+    @else if $l-zone == "dark" { @return (55%, 7%, 13%); }
     @else if $l-zone == "mid" { @return (30%, 7%, 3%); }
-    @else if $l-zone == "light" { @return (15%, 11%, 8%); }
+    @else if $l-zone == "light" { @return (11%, 4%, 4%); }
     @else { @return (4%, 8%, 20%); }
   }
   @else if $h-zone == "blue-violet" {
@@ -242,7 +242,10 @@
 }
 
 $colors: (
+  "very-dark-blue": #011042,
+  "dark-blue": #02259c,
   "mid-blue": #2153F9,
+  "light-blue": #90a8f5,
   "mid-cyan-blue": #21bff9,
   "very-dark-red": #540101,
   "dark-red": #7B0000,
